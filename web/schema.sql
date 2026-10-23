@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS state (
+  id TEXT PRIMARY KEY,
+  data TEXT NOT NULL,
+  expires INTEGER NOT NULL,
+  lease TEXT,
+  lease_until INTEGER NOT NULL DEFAULT 0
+);
+CREATE INDEX IF NOT EXISTS state_expiry ON state(expires);
+CREATE TABLE IF NOT EXISTS rate_limit (window INTEGER PRIMARY KEY, count INTEGER NOT NULL);
+
+CREATE TABLE IF NOT EXISTS request_limits (bucket TEXT NOT NULL, window INTEGER NOT NULL, count INTEGER NOT NULL, PRIMARY KEY(bucket, window));
